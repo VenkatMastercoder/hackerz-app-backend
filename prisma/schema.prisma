@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id                String   @id @unique @default(cuid())
+  name                   String?
+  email                  String   @unique
+  department             String?
+  mobile_number          String?
+  gender                 Gender?
+  year                   String?
+  college                String?
+
+  
+  role                   String   @default("user")
+  is_registration_online Boolean  @default(false)
+  is_registration_onspot Boolean  @default(false)
+  created_at             DateTime @default(now())
+  updated_at             DateTime @updatedAt
+  is_attended            Boolean  @default(false)
+  last_sync              DateTime @default(now())
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  NPS
+}
+
+model GeneratedId {
+  id        String   @id @default(cuid())
+  value     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model AdminUser {
+  admin_id    String   @id @default(uuid())
+  admin_name  String
+  admin_email String
+  last_login  DateTime
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}
+
+model Attendance {
+  attendance_id     String  @id @default(uuid())
+  user_id           String
+  event_id          String
+  attendance_marked Boolean @default(true)
+  admin_id          String
+}
