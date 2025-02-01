@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
 });
 
 // ✅ GET API to fetch all users
-app.get("/users", async (req, res) => {
+app.get("/v1/app/users", async (req, res) => {
   try {
     const users = await prisma.user.findMany();
     res
@@ -20,7 +20,9 @@ app.get("/users", async (req, res) => {
       .json({
         success: true,
         message: "Users retrieved successfully",
-        data: users,
+        data: {
+          users: users
+        },
       });
   } catch (error) {
     console.error("Error fetching users:", error);
