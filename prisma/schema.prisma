@@ -41,8 +41,8 @@ model GeneratedId {
 
 model AdminUser {
   admin_id    String   @id @default(uuid())
-  admin_name  String
-  admin_email String
+  admin_name  String   
+  admin_email String   @unique
   last_login  DateTime
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
